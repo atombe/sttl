@@ -2,9 +2,9 @@
 > Small Templated Trees Library
 
 ## Installation
-'''shell
+```shell
 Coming soon
-'''
+```
 
 ## License
 BSD
