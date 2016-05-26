@@ -31,7 +31,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
- *  @file       BinarySearchTree.hpp
+ *  @file       PreconditionFailedException.hpp
  *  @author     Adam Byerly (atombe)
  *  @date       24 May 2016
  *  @version    1.0
@@ -45,60 +45,70 @@
  * @bug         No known bugs at this time.
  */
 
-#ifndef STTL_BINARY_SEARCH_TREE_HPP
-#define STTL_BINARY_SEARCH_TREE_HPP
+#ifndef STTL_PRECONDITION_FAILED_EXCEPTION_HPP
+#define STTL_PRECONDITION_FAILED_EXCEPTION_HPP
 
-#include <cstddef>
-#include <functional>
-
-#include <sttl/AbstractBinaryTree.hpp>
+#include <stdexcept>
+#include <string>
 
 namespace sttl {
 
 /**
- *  @class      BinarySearchTree
+ *  @class      PreconditionFailedException
  *
  *  @brief      TODO
  *
  */
-template<
-    class T,
-> class BinarySearchTree : internal::AbstractBinaryTree<T>
+class PreconditionFailedException : std::logic_error
 {
   public:
-    //-----------------------------------------
-    // Typedefs
-    //-----------------------------------------
-    typedef T                                           value_type;
-    typedef value_type&                                 reference;
-    typedef const value_type&                           const_reference;
-    typedef value_type*                                 pointer;
-    typedef const value_type*                           const_pointer;
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @param  TODO
+     */
+    explicit PreconditionFailedException( const char* msg )
+        : msg_{"Precondition Failed: " + msg}
+    {}
 
-    //-----------------------------------------
-    // Constructors, Destructor, and Assignment
-    //-----------------------------------------
-    BinarySearchTree();
-    BinarySearchTree( const BinarySearchTree<value_type>& ) noexcept;
-    BinarySearchTree( BinarySearchTree<value_type>&& ) noexcept;
-    ~BinarySearchTree() noexcept;
-    BinarySearchTree<value_type>& operator=( const BinarySearchTree<value_type>& ) noexcept;
-    BinarySearchTree<value_type>& operator=( BinarySearchTree<value_type>&& ) noexcept;
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @param  TODO
+     */
+    explicit PreconditionFailedException( const string& msg )
+        : msg_{"Precondition Failed: " + msg}
+    {}
 
-    //-----------------------------------------
-    // BinaryTreeInterface Methods
-    //-----------------------------------------
-    void insert(value_type x);
-    void remove(value_type x) noexcept;
-    bool contains(value_type x) const noexcept final;
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     */
+    virtual ~PreconditionFailedException()
+    {}
 
-    reference findMin() noexcept final;
-    const_reference findMin() const noexcept final;
-    reference findMax() noexcept final;
-    const_reference findMax() const noexcept final;
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @return TODO
+     */
+    virtual const char* what() const throw()
+    {
+        return msg_.c_str();
+    }
 
-};
+  protected:
+    std::string msg_;
+}
 
 }   // namespace sttl
 
-#endif  // STTL_BINARY_SEARCH_TREE_HPP
+#endif  // STTL_PRECONDITION_FAILED_EXCEPTION_HPP

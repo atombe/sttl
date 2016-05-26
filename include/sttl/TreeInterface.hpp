@@ -31,9 +31,9 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
- *  @file       BinarySearchTree.hpp
+ *  @file       TreeInterface.hpp
  *  @author     Adam Byerly (atombe)
- *  @date       24 May 2016
+ *  @date       25 May 2016
  *  @version    1.0
  *
  *  @brief      TODO
@@ -45,60 +45,103 @@
  * @bug         No known bugs at this time.
  */
 
-#ifndef STTL_BINARY_SEARCH_TREE_HPP
-#define STTL_BINARY_SEARCH_TREE_HPP
+#ifndef STTL_TREE_INTERFACE_HPP
+#define STTL_TREE_INTERFACE_HPP
 
 #include <cstddef>
-#include <functional>
-
-#include <sttl/AbstractBinaryTree.hpp>
 
 namespace sttl {
 
 /**
- *  @class      BinarySearchTree
+ *  @class      TreeInterface
  *
  *  @brief      TODO
  *
  */
 template<
-    class T,
-> class BinarySearchTree : internal::AbstractBinaryTree<T>
+    class T
+> class TreeInterface
 {
   public:
     //-----------------------------------------
     // Typedefs
     //-----------------------------------------
-    typedef T                                           value_type;
-    typedef value_type&                                 reference;
-    typedef const value_type&                           const_reference;
-    typedef value_type*                                 pointer;
-    typedef const value_type*                           const_pointer;
+    typedef T               value_type;
+    typedef std::size_t     size_type;
+    typedef std:ptrdiff_t   difference_type;
 
-    //-----------------------------------------
-    // Constructors, Destructor, and Assignment
-    //-----------------------------------------
-    BinarySearchTree();
-    BinarySearchTree( const BinarySearchTree<value_type>& ) noexcept;
-    BinarySearchTree( BinarySearchTree<value_type>&& ) noexcept;
-    ~BinarySearchTree() noexcept;
-    BinarySearchTree<value_type>& operator=( const BinarySearchTree<value_type>& ) noexcept;
-    BinarySearchTree<value_type>& operator=( BinarySearchTree<value_type>&& ) noexcept;
+    /** 
+     * @brief   TODO
+     *
+     * TODO     Full description
+     */
+    virtual ~TreeInterface() noexcept = 0;
 
-    //-----------------------------------------
-    // BinaryTreeInterface Methods
-    //-----------------------------------------
-    void insert(value_type x);
-    void remove(value_type x) noexcept;
-    bool contains(value_type x) const noexcept final;
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @param  TODO
+     */
+    virtual void insert(value_type x) = 0;
 
-    reference findMin() noexcept final;
-    const_reference findMin() const noexcept final;
-    reference findMax() noexcept final;
-    const_reference findMax() const noexcept final;
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @param  TODO
+     */
+    virtual void remove(value_type x) noexcept = 0;
 
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @param  TODO
+     *  @return TODO
+     */
+    virtual bool contains(value_type x) noexcept = 0;
+
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @param  TODO
+     *  @return TODO
+     */
+    virtual bool isEmpty() const noexcept = 0;
+
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     */
+    virtual void makeEmpty() noexcept = 0;
+
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @return TODO
+     */
+    virtual size_type getNumberOfNodes() const noexcept = 0;
+
+    /**
+     *  @brief  TODO
+     *
+     *  TODO Full description
+     *
+     *  @return TODO
+     */
+    virtual size_type getHeight() const noexcept = 0;
 };
 
 }   // namespace sttl
 
-#endif  // STTL_BINARY_SEARCH_TREE_HPP
+#endif  // STTL_TREE_INTERFACE_HPP

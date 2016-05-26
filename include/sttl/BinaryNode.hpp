@@ -31,9 +31,9 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
- *  @file       BinarySearchTree.hpp
+ *  @file       BinaryNode.hpp
  *  @author     Adam Byerly (atombe)
- *  @date       24 May 2016
+ *  @date       25 May 2016
  *  @version    1.0
  *
  *  @brief      TODO
@@ -45,60 +45,37 @@
  * @bug         No known bugs at this time.
  */
 
-#ifndef STTL_BINARY_SEARCH_TREE_HPP
-#define STTL_BINARY_SEARCH_TREE_HPP
+#ifndef STTL_BINARY_NODE_HPP
+#define STTL_BINARY_NODE_HPP
 
 #include <cstddef>
-#include <functional>
-
-#include <sttl/AbstractBinaryTree.hpp>
+#include <memory>
 
 namespace sttl {
+namespace internal {
 
 /**
- *  @class      BinarySearchTree
+ *  @class      BinaryNode
  *
  *  @brief      TODO
  *
  */
 template<
-    class T,
-> class BinarySearchTree : internal::AbstractBinaryTree<T>
+    class T
+> class BinaryNode
 {
   public:
-    //-----------------------------------------
-    // Typedefs
-    //-----------------------------------------
-    typedef T                                           value_type;
-    typedef value_type&                                 reference;
-    typedef const value_type&                           const_reference;
-    typedef value_type*                                 pointer;
-    typedef const value_type*                           const_pointer;
+    typedef T                       value_type;
+    typedef BinaryNode<value_type>  self_type;
+    typedef std::size_t             size_type;
 
-    //-----------------------------------------
-    // Constructors, Destructor, and Assignment
-    //-----------------------------------------
-    BinarySearchTree();
-    BinarySearchTree( const BinarySearchTree<value_type>& ) noexcept;
-    BinarySearchTree( BinarySearchTree<value_type>&& ) noexcept;
-    ~BinarySearchTree() noexcept;
-    BinarySearchTree<value_type>& operator=( const BinarySearchTree<value_type>& ) noexcept;
-    BinarySearchTree<value_type>& operator=( BinarySearchTree<value_type>&& ) noexcept;
-
-    //-----------------------------------------
-    // BinaryTreeInterface Methods
-    //-----------------------------------------
-    void insert(value_type x);
-    void remove(value_type x) noexcept;
-    bool contains(value_type x) const noexcept final;
-
-    reference findMin() noexcept final;
-    const_reference findMin() const noexcept final;
-    reference findMax() noexcept final;
-    const_reference findMax() const noexcept final;
-
+    value_type data_;
+    size_type occurrence_;
+    std::shared_ptr<self_type> left_;
+    std::shared_ptr<self_type> right_
 };
 
+}   // namespace internal
 }   // namespace sttl
 
-#endif  // STTL_BINARY_SEARCH_TREE_HPP
+#endif  // STTL_TREE_NODE_HPP
